@@ -1,77 +1,197 @@
+:root {
+  --sky-color: #70c5ce;
+  --pipe-color: #73be2e;
+  --pipe-shadow: #538135;
+  --bird-body: #f7d308;
+  --bird-wing: #e6b400;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #222;
+  font-family: 'Arial Black', sans-serif;
+  overflow: hidden;
+}
+
+.game-viewport {
+  perspective: 1000px;
+  transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
 .game-container {
   width: 400px;
   height: 600px;
-  background-color: #70c5ce;
-  border: 5px solid #000;
+  background-color: var(--sky-color);
+  background-image: 
+    radial-gradient(circle at 20% 30%, white 0%, transparent 10%),
+    radial-gradient(circle at 70% 50%, white 0%, transparent 15%),
+    radial-gradient(circle at 40% 80%, white 0%, transparent 8%);
+  border: 8px solid #333;
+  border-radius: 20px;
   position: relative;
   overflow: hidden;
-  margin: 20px auto;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.5);
   user-select: none;
 }
 
+/* Красива пташка */
 .bird {
-  width: 40px;
-  height: 30px;
-  background-color: yellow;
-  border: 2px solid black;
-  border-radius: 10px;
+  width: 45px;
+  height: 35px;
+  background-color: var(--bird-body);
+  border: 3px solid #333;
+  border-radius: 50% 50% 40% 40%;
   position: absolute;
   left: 50px;
-  transition: transform 0.1s linear;
+  z-index: 15;
+  box-shadow: inset -4px -4px 0 rgba(0,0,0,0.1);
 }
 
+.bird::after { /* Око */
+  content: '';
+  position: absolute;
+  top: 6px;
+  right: 8px;
+  width: 10px;
+  height: 10px;
+  background: white;
+  border: 2px solid #333;
+  border-radius: 50%;
+}
+
+.bird::before { /* Зіниця */
+  content: '';
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 4px;
+  height: 4px;
+  background: #333;
+  border-radius: 50%;
+  z-index: 2;
+}
+
+.bird-wing {
+  position: absolute;
+  top: 15px;
+  left: 5px;
+  width: 20px;
+  height: 15px;
+  background: var(--bird-wing);
+  border: 2px solid #333;
+  border-radius: 50%;
+  transform-origin: left top;
+  animation: flap 0.2s infinite alternate;
+}
+
+@keyframes flap {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(-30deg); }
+}
+
+.bird-beak {
+  position: absolute;
+  top: 18px;
+  right: -8px;
+  width: 12px;
+  height: 10px;
+  background: #ff6b6b;
+  border: 2px solid #333;
+  border-radius: 0 50% 50% 0;
+}
+
+/* Красиві труби */
 .pipe-container {
   position: absolute;
-  width: 60px;
+  width: 70px;
   height: 100%;
 }
 
-.pipe-top {
-  background-color: green;
-  border: 2px solid black;
+.pipe-top, .pipe-bottom {
+  background: linear-gradient(90deg, var(--pipe-shadow) 0%, var(--pipe-color) 20%, var(--pipe-color) 80%, var(--pipe-shadow) 100%);
+  border: 4px solid #333;
   position: absolute;
-  top: 0;
   width: 100%;
+  box-sizing: border-box;
 }
 
-.pipe-bottom {
-  background-color: green;
-  border: 2px solid black;
+.pipe-top { top: 0; border-radius: 0 0 8px 8px; }
+.pipe-bottom { bottom: 0; border-radius: 8px 8px 0 0; }
+
+.pipe-cap {
   position: absolute;
-  bottom: 0;
-  width: 100%;
+  width: 80px;
+  height: 25px;
+  background: linear-gradient(90deg, var(--pipe-shadow) 0%, var(--pipe-color) 20%, var(--pipe-color) 80%, var(--pipe-shadow) 100%);
+  border: 4px solid #333;
+  left: -5px;
+  box-sizing: border-box;
 }
 
+.pipe-top .pipe-cap { bottom: 0; border-radius: 5px; }
+.pipe-bottom .pipe-cap { top: 0; border-radius: 5px; }
+
+/* Інтерфейс */
 .score {
   position: absolute;
-  top: 20px;
+  top: 30px;
   left: 50%;
   transform: translateX(-50%);
-  font-size: 40px;
-  font-family: Arial, sans-serif;
+  font-size: 60px;
   color: white;
-  text-shadow: 2px 2px black;
-  z-index: 10;
-}
-
-.game-over {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background: white;
-  padding: 20px;
-  border: 4px solid black;
-  text-align: center;
+  text-shadow: 4px 4px 0 #333;
   z-index: 20;
 }
 
-.game-over button {
-  padding: 10px 20px;
+.level-badge {
+  position: absolute;
+  top: 100px;
+  left: 50%;
+  transform: translateX(-50%);
   font-size: 20px;
-  cursor: pointer;
-  background-color: #ff9d00;
-  border: none;
+  color: #ffeb3b;
+  text-shadow: 2px 2px 0 #333;
+  z-index: 20;
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.4);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 100;
   color: white;
-  font-weight: bold;
+  text-align: center;
+  backdrop-filter: blur(4px);
+}
+
+.overlay h1 {
+  font-size: 48px;
+  margin-bottom: 10px;
+  text-shadow: 4px 4px 0 #ff6b6b;
+}
+
+.btn-start {
+  padding: 15px 40px;
+  font-size: 24px;
+  background: #4caf50;
+  color: white;
+  border: 4px solid #2e7d32;
+  border-radius: 50px;
+  cursor: pointer;
+  box-shadow: 0 6px 0 #1b5e20;
+  transition: all 0.1s;
+}
+
+.btn-start:active {
+  transform: translateY(4px);
+  box-shadow: 0 2px 0 #1b5e20;
 }

@@ -8,9 +8,11 @@ export default defineConfig({
   server: {
     host: '0.0.0.0',
     port: 5173,
+    allowedHosts: ['coder.brobots.org.ua'],
   },
   preview: {
     host: '0.0.0.0',
     port: 5173,
+    allowedHosts: ['coder.brobots.org.ua'],
   }
 })
