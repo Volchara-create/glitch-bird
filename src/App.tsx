@@ -50,10 +50,10 @@ function App() {
     pipeSpawnTimerRef.current = 0;
   };
 
-  // Механіка перевороту кожні 20 очок
+  // Механіка перевороту кожні 10 очок
   useEffect(() => {
-    if (score > 0 && score % 20 === 0) {
-      setRotation((score / 20) * 45);
+    if (score > 0 && score % 10 === 0) {
+      setRotation((score / 10) * 45);
     }
   }, [score]);
 
