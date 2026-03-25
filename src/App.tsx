@@ -547,7 +547,18 @@ function App() {
               {isGameOver ? 'TRY AGAIN' : 'START GAME'}
             </button>
             {isGameOver && (
-              <p className="hint-text">Press Enter or Click to continue</p>
+              <>
+                <p className="hint-text">Press Enter or Click to continue</p>
+                <a
+                  href="https://send.monobank.ua/jar/7kcin57bo4"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn-donate"
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  ☕ Закинути на каву
+                </a>
+              </>
             )}
             {!isGameOver && (
               <>
