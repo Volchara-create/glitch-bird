@@ -102,11 +102,11 @@ function App() {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  // Init bird at center
+  // Init bird at upper-third of the screen
   useEffect(() => {
-    const centerY = Math.floor(window.innerHeight / 2);
-    setBirdY(centerY);
-    birdYRef.current = centerY;
+    const startY = Math.floor(window.innerHeight * 0.35);
+    setBirdY(startY);
+    birdYRef.current = startY;
   }, []);
 
   const jump = useCallback(() => {
@@ -121,7 +121,7 @@ function App() {
   }, []);
 
   const resetGame = useCallback(() => {
-    const centerY = Math.floor(screenHRef.current / 2);
+    const centerY = Math.floor(screenHRef.current * 0.35);
     birdYRef.current = centerY;
     birdVelRef.current = 0;
     pipesRef.current = [];
@@ -342,8 +342,8 @@ function App() {
       pipeSpawnTimerRef.current += 1;
       const spawnRate = Math.max(70, 110 - currentLevel() * 5);
       if (pipeSpawnTimerRef.current >= spawnRate) {
-        const minHeight = Math.floor(sH * 0.1);
-        const maxHeight = Math.floor(sH - pipeGap - sH * 0.1);
+        const minHeight = Math.floor(sH * 0.08);
+        const maxHeight = Math.floor(sH - pipeGap - sH * 0.08);
         const topHeight = Math.floor(Math.random() * (maxHeight - minHeight + 1)) + minHeight;
         pipesRef.current.push({ id: Date.now(), x: sW, topHeight, gap: pipeGap });
         pipeSpawnTimerRef.current = 0;

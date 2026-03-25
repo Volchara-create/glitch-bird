@@ -2,8 +2,8 @@
   --glitch-red: #ff0040;
   --glitch-cyan: #00ffff;
   --glitch-green: #00ff41;
-  --pipe-color: #73be2e;
-  --pipe-shadow: #538135;
+  --pipe-color: #2d5010;
+  --pipe-shadow: #1a3008;
   --bird-body: #f7d308;
   --bird-wing: #e6b400;
 }
@@ -18,7 +18,7 @@ html, body, #root {
   width: 100%;
   height: 100%;
   overflow: hidden;
-  background: #0d0025;
+  background: #1a0045;
 }
 
 /* Cursor hidden during gameplay, visible on menu/gameover */
@@ -31,7 +31,7 @@ html, body, #root {
   height: 100vh;
   position: relative;
   overflow: hidden;
-  background: linear-gradient(180deg, #1a0040 0%, #0d0025 40%, #0a1a2e 100%);
+  background: linear-gradient(180deg, #2e0070 0%, #1a0045 40%, #102040 100%);
 }
 
 /* ===== BROKEN TV STRIPE BACKGROUND ===== */
@@ -41,23 +41,23 @@ html, body, #root {
   z-index: 0;
   background: repeating-linear-gradient(
     0deg,
-    #000000 0px,
-    #1a0030 3px,
-    #000000 6px,
-    #0a2010 9px,
-    #000000 12px,
-    #200008 15px,
-    #000000 18px,
-    #001a2e 21px,
-    #000000 24px,
-    #1a1a00 27px,
-    #000000 30px,
-    #0a0020 33px,
-    #000000 36px,
-    #002010 39px,
-    #000000 42px,
-    #200010 45px,
-    #000000 48px
+    #0a0020 0px,
+    #330060 3px,
+    #0a0020 6px,
+    #154025 9px,
+    #0a0020 12px,
+    #400015 15px,
+    #0a0020 18px,
+    #003355 21px,
+    #0a0020 24px,
+    #333300 27px,
+    #0a0020 30px,
+    #150040 33px,
+    #0a0020 36px,
+    #004020 39px,
+    #0a0020 42px,
+    #400020 45px,
+    #0a0020 48px
   );
   animation: tv-scroll 3s linear infinite;
   transition: opacity 0.5s;
@@ -438,9 +438,10 @@ html, body, #root {
 
 .pipe-top, .pipe-bottom {
   background: linear-gradient(90deg, var(--pipe-shadow) 0%, var(--pipe-color) 20%, var(--pipe-color) 80%, var(--pipe-shadow) 100%);
-  border: 4px solid #333;
+  border: 3px solid rgba(50, 50, 50, 0.6);
   position: absolute;
   width: 100%;
+  opacity: 0.7;
 }
 .pipe-top { top: 0; border-radius: 0 0 8px 8px; }
 .pipe-bottom { bottom: 0; border-radius: 8px 8px 0 0; }
@@ -451,7 +452,7 @@ html, body, #root {
   width: 80px;
   height: 25px;
   background: linear-gradient(90deg, var(--pipe-shadow) 0%, var(--pipe-color) 20%, var(--pipe-color) 80%, var(--pipe-shadow) 100%);
-  border: 4px solid #333;
+  border: 3px solid rgba(50, 50, 50, 0.6);
   left: -5px;
 }
 .pipe-top .pipe-cap { bottom: 0; border-radius: 5px; }
