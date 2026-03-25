@@ -289,13 +289,14 @@ function App() {
       birdVelRef.current += GRAVITY;
       birdYRef.current += birdVelRef.current;
 
-      // Floor/ceiling collision
-      if (birdYRef.current <= 0 || birdYRef.current + BIRD_HEIGHT >= sH) {
-        birdYRef.current = Math.max(0, Math.min(birdYRef.current, sH - BIRD_HEIGHT));
-        isGameOverRef.current = true;
-        setIsGameOver(true);
-        setBirdY(birdYRef.current);
-        return;
+      // Floor/ceiling — bounce back, don't die
+      if (birdYRef.current <= 0) {
+        birdYRef.current = 0;
+        birdVelRef.current = 2; // push down
+      }
+      if (birdYRef.current + BIRD_HEIGHT >= sH) {
+        birdYRef.current = sH - BIRD_HEIGHT;
+        birdVelRef.current = -3; // bounce up a little
       }
 
       // Move pipes
@@ -309,15 +310,12 @@ function App() {
         const birdLeft = birdXPos;
 
         if (birdRight > pipe.x && birdLeft < pipe.x + PIPE_WIDTH) {
-          // Only check collision after first pipe is passed
-          if (firstPipePassed.current) {
-            if (birdYRef.current < pipe.topHeight || birdYRef.current + BIRD_HEIGHT > pipe.topHeight + PIPE_GAP) {
-              isGameOverRef.current = true;
-              setIsGameOver(true);
-              setBirdY(birdYRef.current);
-              setPipes([...pipesRef.current]);
-              return;
-            }
+          if (birdYRef.current < pipe.topHeight || birdYRef.current + BIRD_HEIGHT > pipe.topHeight + PIPE_GAP) {
+            isGameOverRef.current = true;
+            setIsGameOver(true);
+            setBirdY(birdYRef.current);
+            setPipes([...pipesRef.current]);
+            return;
           }
         }
 
@@ -453,11 +451,6 @@ function App() {
             : score}
         </div>
         {score > 0 && <div className="level-badge">LVL {level}</div>}
-
-        {/* Invincibility indicator */}
-        {isStarted && !isGameOver && !firstPipePassed.current && (
-          <div className="invincible-hint">SHIELD ACTIVE</div>
-        )}
 
         {/* Start / Game Over */}
         {(!isStarted || isGameOver) && (

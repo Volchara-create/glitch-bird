@@ -34,35 +34,102 @@ html, body, #root {
   background: #0a0a0a;
 }
 
-/* ===== PSYCHEDELIC BROKEN TV BACKGROUND ===== */
+/* ===== BROKEN TV STRIPE BACKGROUND ===== */
 .tv-background {
   position: fixed;
-  inset: -50%;
-  width: 200%;
-  height: 200%;
+  inset: 0;
   z-index: 0;
-  background:
-    radial-gradient(ellipse at 15% 20%, #8b00ff 0%, transparent 35%),
-    radial-gradient(ellipse at 75% 15%, #00cc44 0%, transparent 30%),
-    radial-gradient(ellipse at 50% 75%, #ff0033 0%, transparent 35%),
-    radial-gradient(ellipse at 85% 60%, #0066ff 0%, transparent 30%),
-    radial-gradient(ellipse at 25% 65%, #cccc00 0%, transparent 25%),
-    radial-gradient(ellipse at 60% 40%, #ff00cc 0%, transparent 20%),
-    radial-gradient(ellipse at 40% 10%, #00ffaa 0%, transparent 25%),
-    linear-gradient(135deg, #0a0a0a 0%, #1a002e 20%, #001a0a 40%, #0a0a0a 60%, #2e0000 80%, #0a0a0a 100%);
-  background-size: 100% 100%;
-  animation: psychedelic-move 6s ease-in-out infinite;
-  mix-blend-mode: screen;
+  background: repeating-linear-gradient(
+    0deg,
+    #000000 0px,
+    #1a0030 3px,
+    #000000 6px,
+    #0a2010 9px,
+    #000000 12px,
+    #200008 15px,
+    #000000 18px,
+    #001a2e 21px,
+    #000000 24px,
+    #1a1a00 27px,
+    #000000 30px,
+    #0a0020 33px,
+    #000000 36px,
+    #002010 39px,
+    #000000 42px,
+    #200010 45px,
+    #000000 48px
+  );
+  animation: tv-scroll 3s linear infinite;
   transition: opacity 0.5s;
 }
 
-@keyframes psychedelic-move {
-  0% { transform: translate(0, 0) scale(1) rotate(0deg); }
-  20% { transform: translate(-4%, 2%) scale(1.08) rotate(2deg); }
-  40% { transform: translate(3%, -4%) scale(1.12) rotate(-3deg); }
-  60% { transform: translate(-2%, -3%) scale(1.05) rotate(1deg); }
-  80% { transform: translate(4%, 2%) scale(1.1) rotate(-2deg); }
-  100% { transform: translate(0, 0) scale(1) rotate(0deg); }
+/* Bright color overlay that intensifies with gameplay */
+.tv-background::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent 0px,
+    rgba(140, 0, 255, 0.3) 2px,
+    transparent 4px,
+    rgba(0, 200, 60, 0.3) 6px,
+    transparent 8px,
+    rgba(255, 0, 50, 0.25) 10px,
+    transparent 12px,
+    rgba(0, 100, 255, 0.3) 14px,
+    transparent 16px,
+    rgba(200, 200, 0, 0.2) 18px,
+    transparent 20px,
+    rgba(255, 0, 200, 0.2) 22px,
+    transparent 24px
+  );
+  animation: tv-scroll-reverse 2s linear infinite;
+}
+
+/* Thicker color bands that drift */
+.tv-background::after {
+  content: '';
+  position: absolute;
+  inset: -100% 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent 0px,
+    transparent 40px,
+    rgba(0, 255, 100, 0.12) 40px,
+    rgba(0, 255, 100, 0.12) 55px,
+    transparent 55px,
+    transparent 90px,
+    rgba(140, 0, 255, 0.12) 90px,
+    rgba(140, 0, 255, 0.12) 110px,
+    transparent 110px,
+    transparent 150px,
+    rgba(255, 40, 40, 0.1) 150px,
+    rgba(255, 40, 40, 0.1) 165px,
+    transparent 165px,
+    transparent 200px,
+    rgba(0, 80, 255, 0.12) 200px,
+    rgba(0, 80, 255, 0.12) 220px,
+    transparent 220px,
+    transparent 260px
+  );
+  animation: tv-drift 8s ease-in-out infinite;
+}
+
+@keyframes tv-scroll {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(48px); }
+}
+
+@keyframes tv-scroll-reverse {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-24px); }
+}
+
+@keyframes tv-drift {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-150px); }
+  100% { transform: translateY(0); }
 }
 
 /* ===== CRT SCANLINES ===== */
@@ -533,22 +600,6 @@ html, body, #root {
   transition: all 0.2s;
   box-shadow: 0 0 15px rgba(0, 255, 65, 0.3);
   margin-top: 15px;
-}
-
-/* ===== INVINCIBILITY HINT ===== */
-.invincible-hint {
-  position: fixed;
-  bottom: 40px;
-  left: 50%;
-  transform: translateX(-50%);
-  font-family: 'Courier New', monospace;
-  font-size: 14px;
-  color: var(--glitch-cyan);
-  text-shadow: 0 0 10px var(--glitch-cyan);
-  letter-spacing: 3px;
-  z-index: 20;
-  animation: msg-flicker 0.8s steps(3) infinite;
-  opacity: 0.7;
 }
 
 .btn-start:hover {
