@@ -104,7 +104,7 @@ function App() {
 
   // Init bird at upper-third of the screen
   useEffect(() => {
-    const startY = Math.floor(window.innerHeight * 0.35);
+    const startY = Math.floor(window.innerHeight * 0.25);
     setBirdY(startY);
     birdYRef.current = startY;
   }, []);
@@ -121,7 +121,7 @@ function App() {
   }, []);
 
   const resetGame = useCallback(() => {
-    const centerY = Math.floor(screenHRef.current * 0.35);
+    const centerY = Math.floor(screenHRef.current * 0.25);
     birdYRef.current = centerY;
     birdVelRef.current = 0;
     pipesRef.current = [];
