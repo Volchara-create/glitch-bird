@@ -78,8 +78,8 @@ function App() {
   const glitchIntervalRef = useRef<number>(0);
   const psychedelicRef = useRef<number>(0);
 
-  // Bird X position (center-ish, 30% from left)
-  const birdX = Math.floor(screenW * 0.3);
+  // Bird X position — center of screen
+  const birdX = Math.floor(screenW * 0.5 - BIRD_WIDTH / 2);
 
   // Difficulty
   const level = Math.floor(score / 10) + 1;
@@ -290,7 +290,7 @@ function App() {
 
     const currentPipeSpeed = () => INITIAL_PIPE_SPEED + Math.floor(scoreRef.current / 10) * 0.5;
     const currentLevel = () => Math.floor(scoreRef.current / 10) + 1;
-    const birdXPos = Math.floor(screenWRef.current * 0.3);
+    const birdXPos = Math.floor(screenWRef.current * 0.5 - BIRD_WIDTH / 2);
 
     const update = () => {
       if (isGameOverRef.current) return;
