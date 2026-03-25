@@ -462,7 +462,7 @@ function App() {
       <div
         className={`game-area ${glitchActive ? 'glitching' : ''}`}
         style={{
-          transform: `rotate(${rotation}deg) translate(${screenShake.x}px, ${screenShake.y}px)`,
+          transform: `scale(1.42) rotate(${rotation}deg) translate(${screenShake.x}px, ${screenShake.y}px)`,
           filter: getFilters(),
         }}
       >
